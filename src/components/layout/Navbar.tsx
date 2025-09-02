@@ -50,7 +50,7 @@ const Header = () => {
   const openMenu = () => setToggle((prev) => !prev);
 
   return (
-    <header className="w-full px-12 pt-12 flex justify-between fixed top-0 left-0 z-50">
+    <header className="w-full px-10 pt-10 flex justify-between fixed top-0 left-0 z-50">
       {/* Left Logo */}
       <div className="flex items-end z-50 mix-blend-difference">
         <Link href="/" passHref>
@@ -59,25 +59,26 @@ const Header = () => {
             height={30}
             alt="logo Inertia"
             src="https://inertia-website.cdn.prismic.io/inertia-website/Z2RC1ZbqstJ98sBQ_logo.svg"
-            className="cursor-pointer hover:opacity-80 transition-opacity"
+            className="cursor-pointer hover:opacity-80 transition-opacity mix-blend-difference"
           />
         </Link>
+
       </div>
 
       {/* Right Navigation */}
       <div className="flex items-end gap-8">
         {/* Desktop Nav */}
         <nav className="hidden md:block mix-blend-difference">
-          <ul className="flex items-end gap-6 text-sm font-semibold uppercase tracking-wide">
+          <ul className="flex items-end gap-6  font-semibold uppercase tracking-tighter">
             {navItems.map(({ label, href, isCTA }) => (
               <li key={label}>
                 {isCTA ? (
                   <Link
                     href={href}
-                    className="relative flex items-center gap-2 rounded-full border border-white/30 md:ml-10 md:pl-10 hover:bg-white hover:text-black transition-all duration-300"
+                    className="relative flex items-center gap-2 rounded-full font-extrabold underline  md:ml-10 md:pl-10 hover:bg-white hover:text-black"
                   >
                     <ArrowRight className="w-4 h-4 rotate-45" />
-                    <span className="uppercase text-sm tracking-wider font-bold">
+                    <span className="uppercase  tracking-wider font-bold">
                       {label}
                     </span>
                   </Link>
@@ -119,7 +120,9 @@ const Header = () => {
               {navItems.map(({ label, href, isCTA }, i) => (
                 <li
                   key={label}
-                  ref={(el) => (listRefs.current[i] = el!)}
+                  ref={(el: HTMLLIElement | null) => {
+                    if (el) listRefs.current[i] = el;
+                  }}
                   className="border-b-2"
                 >
                   <Link href={href}>
