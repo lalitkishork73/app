@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bebas_Neue } from "next/font/google";
 import "./globals.css";
@@ -35,7 +36,7 @@ export default function RootLayout ({
     <html lang="en">
       <body
         className={`${bebas} `}
-      >
+      > 
         <SmoothScrollProvider>
           <Navbar />
           <main>{children}</main>

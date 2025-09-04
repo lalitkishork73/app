@@ -112,7 +112,7 @@ const Hero = () => {
     return (
         <section
             ref={heroRef}
-            className="relative px-10 mx-auto my-[0.5px] h-screen flex justify-between items-center overflow-hidden"
+            className="relative px-10 mx-auto my-[0.5px] h-screen flex justify-between items-center overflow-hidden "
         >
             {/* Hero Top */}
 
@@ -124,7 +124,7 @@ const Hero = () => {
 
 
                 {/* Top Text */}
-                <span className="md:-translate-x-0 md:-translate-y-3/4 home-page-hero-word-top md:mx-28 text-6xl sm:text-[12vw] font-medium md:text-left md:self-start">
+                <span className="md:-translate-x-0 md:-translate-y-3/4 home-page-hero-word-top md:mx-28 text-6xl sm:text-[12vw] font-medium md:text-left md:self-start  mix-blend-multiply">
                     INERTIA
                 </span>
 
@@ -138,7 +138,7 @@ const Hero = () => {
                         className="hero-video md:absolute md:top-1/2 md:left-1/2 
                w-auto min-w-full h-auto min-h-full 
                md:-translate-x-1/2 md:-translate-y-1/2 
-               md:object-cover"
+               md:object-cover  mix-blend-multiply"
                     />
                 </div>
                 {/* Spacer pushes STUDIOS to bottom */}

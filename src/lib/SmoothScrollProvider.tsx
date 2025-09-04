@@ -49,7 +49,7 @@ export const SmoothScrollProvider = ({ children }: { children: React.ReactNode }
     );
 };
 
-export const useLenis = () => {
+export const useLenis = (heroRef: unknown) => {
     const context = useContext(LenisContext);
     if (!context) throw new Error("useLenis must be used within SmoothScrollProvider");
     return context;
