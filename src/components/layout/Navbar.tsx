@@ -5,7 +5,6 @@ import { AlignJustify, ArrowRight, X } from "lucide-react";
 import { useState, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { motion } from "framer-motion";
 
 // Navigation items object
 const navItems = [
@@ -20,7 +19,6 @@ const Header = () => {
   const [toggle, setToggle] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const listRefs = useRef<HTMLLIElement[]>([]);
-  const ctaRef = useRef<HTMLSpanElement>(null);
 
   gsap.registerPlugin(useGSAP);
 
@@ -99,21 +97,21 @@ const Header = () => {
                 {isCTA ? (
                   <Link
                     href={href}
-                    className="relative flex items-center gap-2 rounded-full font-extrabold underline  md:ml-10 md:pl-10 hover:bg-white hover:text-black overflow-hidden"
+                    className="relative flex items-center gap-2  font-extrabold underline  md:ml-10 md:pl-10"
                   >
-                    <ArrowRight className="w-4 h-4 rotate-45" />
-                    <span className="relative block h-[1em] overflow-hidden">
-                      <span className="block transition-transform duration-300 group-hover:-translate-y-full">
-                        CONTACT
+                    <ArrowRight className="w-4 h-4 rotate-45 Arrow-rotate" />
+                    <span className="relative block h-auto overflow-hidden">
+                      <span className="block nav-label">
+                        {label}
                       </span>
-                      <span className="block absolute top-full left-0 transition-transform duration-300 group-hover:-translate-y-full">
-                        CONTACT
+                      <span className="block nav-label-duplicate absolute top-full left-0">
+                        {label}
                       </span>
                     </span>
                   </Link>
                 ) : (
-                  <Link href={href}>
-                    <span className="relative h-[1em] overflow-hidden inline-block">
+                    <Link href={href} className="relative flex items-center gap-2   underline  "> 
+                    <span className="relative h-auto overflow-hidden inline-block">
                       {/* First text (default visible) */}
                       <span className="block nav-label">{label}</span>
                       {/* Second text (hidden below, will slide up) */}
