@@ -64,7 +64,7 @@ const Hero = () => {
                             end: "+=100%", // until hero scrolls out
                             scrub: true, // smooth scroll link
                             pin: true,
-                            markers: true, // for debugging, remove later
+                            // markers: true, // for debugging, remove later
                         },
                     }
                 );
