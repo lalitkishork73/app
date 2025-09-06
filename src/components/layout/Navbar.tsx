@@ -103,7 +103,7 @@ const Header = () => {
                     href={href}
                     className="relative flex items-center gap-2  font-extrabold underline  md:ml-10 md:pl-10"
                   >
-                    <ArrowRight className="w-4 h-4 rotate-45 Arrow-rotate" />
+                    <ArrowRight className="w-4 h-4 rotate-45 Arrow-rotate font-extrabold" />
                     <span className="relative block h-auto overflow-hidden">
                       <span className="block nav-label">
                         {label}
@@ -114,7 +114,7 @@ const Header = () => {
                     </span>
                   </Link>
                 ) : (
-                    <Link href={href} className="relative flex items-center gap-2   underline  "> 
+                    <Link href={href} className="relative flex items-center gap-2   "> 
                     <span className="relative h-auto overflow-hidden inline-block">
                       {/* First text (default visible) */}
                       <span className="block nav-label">{label}</span>
