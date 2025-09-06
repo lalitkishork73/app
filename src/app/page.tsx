@@ -11,7 +11,7 @@ export default function Home () {
       <Hero />
       <Projects />
       <About />
-      <Clients />
+      <Clients /> 
       <Showreel />
       <LatestInsights/>
     </div>
