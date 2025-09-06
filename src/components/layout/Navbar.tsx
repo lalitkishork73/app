@@ -53,19 +53,23 @@ const Header = () => {
       targets.forEach((el) => {
         const parent = el.parentElement;
         const duplicate = parent?.querySelector(".nav-label-duplicate");
+        const arrow = document.querySelector(".Arrow-rotate"); // 🔥 Arrow reference
 
         if (!parent || !duplicate) return;
 
         parent.addEventListener("mouseenter", () => {
           gsap.to(el, { y: "-100%", duration: 0.4, ease: "power2.out" });
           gsap.to(duplicate, { y: "-100%", duration: 0.4, ease: "power2.out" });
+          if (arrow) gsap.to(arrow, { rotate: 0, duration: 0.4, ease: "power2.out" }); // 🔥 rotate back
         });
 
         parent.addEventListener("mouseleave", () => {
           gsap.to(el, { y: "0%", duration: 0.4, ease: "power2.in" });
           gsap.to(duplicate, { y: "0%", duration: 0.4, ease: "power2.in" });
+          if (arrow) gsap.to(arrow, { rotate: 45, duration: 0.4, ease: "power2.in" }); // 🔥 rotate to default
         });
       });
+
     },
     { dependencies: [toggle], scope: menuRef } // optimized re-run
   );
