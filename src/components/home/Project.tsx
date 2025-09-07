@@ -25,8 +25,7 @@ const projects: Project[] = [
     subtitle: "Fast RB",
     nb: "01",
     img: "https://images.prismic.io/inertia-website/Z8RlyxsAHJWomB5O_01_Extended.png?auto=format,compress&rect=0,375,3200,2450&w=640&h=490",
-    video:
-      "https://player.vimeo.com/progressive_redirect/playback/1044635683/rendition/1080p",
+    video: "/videos/PUMA.mp4",
     style: `grid-column: span 2 / span 2;`,
   },
   {
@@ -36,8 +35,7 @@ const projects: Project[] = [
     subtitle: "Levels of Liason",
     nb: "02",
     img: "https://images.prismic.io/inertia-website/Z8ruwhsAHJWomOsK_TP_ThirdFloor_JW_R%26D_07_0191.png?auto=format,compress&rect=0,252,1040,796&w=640&h=490",
-    video:
-      "https://player.vimeo.com/progressive_redirect/playback/1047200435/rendition/1080p/file.mp4",
+    video: "/videos/JOHNYWALKER.mp4",
   },
   {
     id: "03",
@@ -46,8 +44,7 @@ const projects: Project[] = [
     subtitle: "With love, since 1837",
     nb: "03",
     img: "https://images.prismic.io/inertia-website/Z8sb6BsAHJWomPMg_Tiffany2.png?auto=format,compress&rect=255,0,1411,1080&w=640&h=490",
-    video:
-      "https://player.vimeo.com/progressive_redirect/playback/1063615745/rendition/1080p/file.mp4",
+    video: "/videos/TIFFANY.mp4",
   },
   {
     id: "04",
@@ -56,12 +53,11 @@ const projects: Project[] = [
     subtitle: "Dream now",
     nb: "04",
     img: "https://images.prismic.io/inertia-website/Z8sSWhsAHJWomPHn_Header-image_LouisVuittonxNike_InertiaStudios.jpg?auto=format,compress&rect=255,0,1411,1080&w=640&h=490",
-    video:
-      "https://player.vimeo.com/progressive_redirect/playback/782894191/rendition/1080p/file.mp4",
+    video: "/videos/LVXNIKE.mp4",
   },
 ];
 
-export default function Projects () {
+export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -178,19 +174,19 @@ export default function Projects () {
             >
               {/* Media */}
               <div className="relative w-full h-72 md:h-96 overflow-hidden">
-                {/* <Image
+                <Image
                   src={projects[0].img}
                   alt={projects[0].title}
                   fill
                   className="object-cover  "
-                /> */}
+                />
                 {projects[0].video && (
                   <video
                     playsInline
                     loop
                     muted
                     autoPlay
-                    className=" w-full h-full object-cover "
+                    className="absolute top-0 left-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     src={projects[0].video}
                   />
                 )}
@@ -240,14 +236,10 @@ export default function Projects () {
               </div>
             </Link>
           </div>
-
         </div>
-
-
 
         {/* Projects top right Grid */}
         <div className="md:col-span-1 md:row-span-2 ">
-
           <div className="h-full w-full">
             <Link
               key={projects[1].id}
@@ -283,16 +275,50 @@ export default function Projects () {
             </Link>
           </div>
           {/* Projects bottom Grid */}
-
-
         </div>
+      </div>
 
+      {/* Projects bottom Grid */}
+      <div className="grid grid-cols-3">
+        <div className="md:col-start-3  h-full w-full">
+          <Link
+            key={projects[3].id}
+            href={projects[3].href}
+            className={`project-card group relative block w-full h-full ${projects[3].style}`}
+          >
+            {/* Media */}
+            <div className="relative w-full h-72 md:h-96 overflow-hidden">
+              <Image
+                src={projects[3].img}
+                alt={projects[3].title}
+                fill
+                className="object-cover"
+              />
+              {projects[3].video && (
+                <video
+                  playsInline
+                  loop
+                  muted
+                  autoPlay
+                  className="absolute top-0 left-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  src={projects[3].video}
+                />
+              )}
+            </div>
 
+            {/* Info */}
+            <div className="md:absolute top-[100%] text-black p-6">
+              <div className="text-sm opacity-70">{projects[3].nb}</div>
+              <div className="text-2xl font-bold">{projects[3].title}</div>
+              <div className="text-lg">{projects[3].subtitle}</div>
+            </div>
+          </Link>
+        </div>
       </div>
 
       {/* Bottom CTA */}
 
-      <div className="mt-16 text-center">
+      <div className="absolute mt-16 px-4 text-center">
         <Link
           href="/work"
           className="inline-flex items-center gap-3 text-lg font-medium group"
