@@ -77,7 +77,7 @@ const Header = () => {
   const openMenu = () => setToggle((prev) => !prev);
 
   return (
-    <header className="w-full px-10 pt-10 flex justify-between fixed top-0 left-0 z-50  mix-blend-multiply">
+    <header className="w-full px-4 md:px-10 pt-10 flex justify-between fixed top-0 left-0 z-50  mix-blend-multiply">
       {/* Left Logo */}
       <div className="flex items-end z-50  mix-blend-multiply">
         <Link href="/" passHref>

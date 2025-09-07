@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Link from "next/link";
 import Image from "next/image";
+// import Johnywalker from '@/assets/videos/'
 
 interface Project {
   id: string;
@@ -13,6 +14,7 @@ interface Project {
   nb: string;
   img: string;
   video?: string;
+  style?: string;
 }
 
 const projects: Project[] = [
@@ -24,7 +26,8 @@ const projects: Project[] = [
     nb: "01",
     img: "https://images.prismic.io/inertia-website/Z8RlyxsAHJWomB5O_01_Extended.png?auto=format,compress&rect=0,375,3200,2450&w=640&h=490",
     video:
-      "https://player.vimeo.com/progressive_redirect/playback/1044635683/rendition/1080p/file.mp4",
+      "https://player.vimeo.com/progressive_redirect/playback/1044635683/rendition/1080p",
+    style: `grid-column: span 2 / span 2;`,
   },
   {
     id: "02",
@@ -58,7 +61,7 @@ const projects: Project[] = [
   },
 ];
 
-export default function Projects() {
+export default function Projects () {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -99,37 +102,34 @@ export default function Projects() {
     return () => ctx.revert();
   }, []);
 
-    useGSAP(() => {
-        const marquee = document.querySelector(".marquee-content");
+  useGSAP(() => {
+    const marquee = document.querySelector(".marquee-content");
 
-        if (marquee) {
-            const distance = marquee.scrollWidth / 2; // Half width because of duplicate
+    if (marquee) {
+      const distance = marquee.scrollWidth / 2; // Half width because of duplicate
 
-            gsap.to(marquee, {
-                x: -distance,
-                duration: 30, // speed
-                ease: "none",
-                repeat: -1,   // infinite
-                modifiers: {
-                    x: gsap.utils.unitize(x => parseFloat(x) % distance) // loop seamlessly
-                }
-            });
-        }
-    }, []);
+      gsap.to(marquee, {
+        x: -distance,
+        duration: 30, // speed
+        ease: "power1",
+        repeat: -1, // infinite
+        modifiers: {
+          x: gsap.utils.unitize((x) => parseFloat(x) % distance), // loop seamlessly
+        },
+      });
+    }
+  }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="home-projects relative w-full py-10 px-6 md:px-0 h-full"
-    >
+    <section ref={sectionRef} className="home-projects relative w-full  h-full">
       {/* Leading Brand Parteners */}
-      <div className="flex flex-col md:flex-row  justify-between items-start px-16 md:mb-[10%]">
-        <div className="text-2xl md:text-4xl  mb-6 md:mb-0 text-center md:text-left  block uppercase">
-          <h2>WHY leading brands</h2>
-          <h2 className="ml-[150px]">partner with inertia.</h2>
+      <div className="flex flex-col md:flex-row  justify-between items-start px-4 md:px-16 md:mb-[10%]">
+        <div className="text-xl font-medium md:text-4xl  mb-6 md:mb-0  md:text-left md:w-1/3 block uppercase tracking-tight">
+          <h2 className="">WHY leading brands</h2>
+          <h2 className="text-right px-16">partner with inertia.</h2>
         </div>
-        <div className="max-w-md text-center md:text-left flex flex-col gap-4 tracking-tight">
-          <span className=" text-xl">
+        <div className="max-w-md  md:text-left flex flex-col gap-4 tracking-tight">
+          <span className=" font font-normal md:text-xl">
             From CGI product films to viral 3D billboards, we are pioneering 3D
             Imagery & Motion Design that redefines visual storytelling. See how
             we help brands make a mark.
@@ -145,64 +145,153 @@ export default function Projects() {
       </div>
 
       {/* Banner Text (looped span style) */}
-          <div className="marquee-container overflow-hidden whitespace-nowrap text-4xl md:text-6xl font-semibold text-gray-300 mb-12 border border-black py-5">
-              <div className="marquee-content flex gap-16 uppercase text-black">
-                  <span>Case studies</span>
-                  <span>Featured Projects</span>
-                  <span>Case studies</span>
-                  <span>Featured Projects</span>
-                  <span>Case studies</span>
-                  <span>Featured Projects</span>
-                  {/* Duplicate for smooth loop */}
-                  <span>Case studies</span>
-                  <span>Featured Projects</span>
-                  <span>Case studies</span>
-                  <span>Featured Projects</span>
-                  <span>Case studies</span>
-                  <span>Featured Projects</span>
-              </div>
-          </div>
-
+      <div className="marquee-container overflow-hidden whitespace-nowrap text-4xl md:text-6xl font-semibold text-gray-300 border border-gray-300  md:border-black py-5">
+        <div className="marquee-content flex gap-16 uppercase text-black">
+          <span>Case studies</span>
+          <span>Featured Projects</span>
+          <span>Case studies</span>
+          <span>Featured Projects</span>
+          <span>Case studies</span>
+          <span>Featured Projects</span>
+          {/* Duplicate for smooth loop */}
+          <span>Case studies</span>
+          <span>Featured Projects</span>
+          <span>Case studies</span>
+          <span>Featured Projects</span>
+          <span>Case studies</span>
+          <span>Featured Projects</span>
+        </div>
+      </div>
 
       {/* Projects Grid */}
-      <div className="grid md:grid-cols-2 gap-8">
-        {projects.map((proj) => (
-          <Link
-            key={proj.id}
-            href={proj.href}
-            className="project-card group relative block overflow-hidden rounded-2xl shadow-lg"
-          >
-            {/* Media */}
-            <div className="relative w-full h-72 md:h-96 overflow-hidden">
-              <Image
-                src={proj.img}
-                alt={proj.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              {proj.video && (
-                <video
-                  playsInline
-                  loop
-                  muted
-                  autoPlay
-                  className="absolute top-0 left-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  src={proj.video}
-                />
-              )}
-            </div>
 
-            {/* Info */}
-            <div className="absolute bottom-6 left-6 text-white drop-shadow-lg">
-              <div className="text-sm opacity-70">#{proj.nb}</div>
-              <div className="text-2xl font-bold">{proj.title}</div>
-              <div className="text-lg">{proj.subtitle}</div>
-            </div>
-          </Link>
-        ))}
+      {/* Projects top Grid */}
+      <div className="grid grid-cols-3 h-full w-full">
+
+        {/* Projects top left Grid */}
+        <div className="md:col-span-2 md:row-span-2 h-full w-full">
+          <div className="">
+            <Link
+              key={projects[0].id}
+              href={projects[0].href}
+              className={`project-card group relative block shadow-lg  ${projects[0].style}`}
+            >
+              {/* Media */}
+              <div className="relative w-full h-72 md:h-96 overflow-hidden">
+                {/* <Image
+                  src={projects[0].img}
+                  alt={projects[0].title}
+                  fill
+                  className="object-cover  "
+                /> */}
+                {projects[0].video && (
+                  <video
+                    playsInline
+                    loop
+                    muted
+                    autoPlay
+                    className=" w-full h-full object-cover "
+                    src={projects[0].video}
+                  />
+                )}
+              </div>
+
+              {/* Info */}
+              <div className="md:absolute top-[100%] text-black p-6">
+                <div className="text-sm opacity-70">{projects[0].nb}</div>
+                <div className="text-2xl font-bold">{projects[0].title}</div>
+                <div className="text-lg">{projects[0].subtitle}</div>
+              </div>
+            </Link>
+          </div>
+
+          <div className=" flex ">
+            <div className="w-full"></div>
+            <Link
+              key={projects[2].id}
+              href={projects[2].href}
+              className={`project-card group relative block w-full  ${projects[2].style}`}
+            >
+              {/* Media */}
+              <div className="relative w-full h-72 md:h-96 overflow-hidden">
+                <Image
+                  src={projects[2].img}
+                  alt={projects[2].title}
+                  fill
+                  className="object-cover "
+                />
+                {projects[2].video && (
+                  <video
+                    playsInline
+                    loop
+                    muted
+                    autoPlay
+                    className="absolute top-0 left-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    src={projects[2].video}
+                  />
+                )}
+              </div>
+
+              {/* Info */}
+              <div className="md:absolute top-[100%] text-black py-6">
+                <div className="text-sm opacity-70">{projects[2].nb}</div>
+                <div className="text-2xl font-bold">{projects[2].title}</div>
+                <div className="text-lg">{projects[2].subtitle}</div>
+              </div>
+            </Link>
+          </div>
+
+        </div>
+
+
+
+        {/* Projects top right Grid */}
+        <div className="md:col-span-1 md:row-span-2 ">
+
+          <div className="h-full w-full">
+            <Link
+              key={projects[1].id}
+              href={projects[1].href}
+              className={`project-card group  block w-full h-[70%]   ${projects[1].style}`}
+            >
+              {/* Media */}
+              <div className="   overflow-hidden">
+                <Image
+                  src={projects[1].img}
+                  alt={projects[1].title}
+                  fill
+                  className="object-cover h-auto w-full  "
+                />
+                {projects[1].video && (
+                  <video
+                    playsInline
+                    loop
+                    muted
+                    autoPlay
+                    className="absolute top-0 left-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    src={projects[1].video}
+                  />
+                )}
+              </div>
+
+              {/* Info */}
+              <div className="md:absolute top-[100%] text-black p-6">
+                <div className="text-sm opacity-70">{projects[1].nb}</div>
+                <div className="text-2xl font-bold">{projects[1].title}</div>
+                <div className="text-lg">{projects[1].subtitle}</div>
+              </div>
+            </Link>
+          </div>
+          {/* Projects bottom Grid */}
+
+
+        </div>
+
+
       </div>
 
       {/* Bottom CTA */}
+
       <div className="mt-16 text-center">
         <Link
           href="/work"
