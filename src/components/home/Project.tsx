@@ -26,7 +26,7 @@ const projects: Project[] = [
     nb: "01",
     img: "https://images.prismic.io/inertia-website/Z8RlyxsAHJWomB5O_01_Extended.png?auto=format,compress&rect=0,375,3200,2450&w=640&h=490",
     video: "/videos/PUMA.mp4",
-    style: `grid-column: span 2 / span 2;`,
+    style: ``,
   },
   {
     id: "02",
@@ -163,10 +163,10 @@ export default function Projects() {
       {/* Projects Grid */}
 
       {/* Projects top Grid */}
-      <div className="grid grid-cols-3 h-full w-full">
+      <div className="flex flex-col md:grid md:grid-cols-3 h-full w-full">
 
         {/* Projects top left Grid */}
-        <div className="md:col-span-2 md:row-span-2 h-full w-full">
+        <div className="col-span-1  md:col-span-2 md:row-span-2 h-full w-full">
           <div className="">
             <Link
               key={projects[0].id}
@@ -203,7 +203,7 @@ export default function Projects() {
           </div>
 
           <div className=" flex ">
-            <div className="w-full"></div>
+            <div className="w-o md:w-full"></div>
             <Link
               key={projects[2].id}
               href={projects[2].href}
@@ -230,7 +230,7 @@ export default function Projects() {
               </div>
 
               {/* Info */}
-              <div className="md:absolute top-[100%] text-black py-6">
+              <div className="md:absolute top-[100%] text-black p-6 md:py-6">
                 <div className="text-sm opacity-70">{projects[2].nb}</div>
                 <div className="text-2xl font-bold">{projects[2].title}</div>
                 <div className="text-lg">{projects[2].subtitle}</div>
@@ -240,15 +240,15 @@ export default function Projects() {
         </div>
 
         {/* Projects top right Grid */}
-        <div className="md:col-span-1 md:row-span-2 ">
+        <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-2 h-full w-full">
           <div className="h-full w-full">
             <Link
               key={projects[1].id}
               href={projects[1].href}
-              className={`project-card group  block w-full h-[70%]   ${projects[1].style}`}
+              className={`project-card  w-full h-auto flex   md:h-[70%]   ${projects[1].style}`}
             >
               {/* Media */}
-              <div className="   overflow-hidden">
+              <div className="overflow-hidden">
                 <Image
                   src={projects[1].img}
                   alt={projects[1].title}
@@ -280,7 +280,7 @@ export default function Projects() {
       </div>
 
       {/* Projects bottom Grid */}
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         <div className="md:col-start-3  h-full w-full">
           <Link
             key={projects[3].id}
@@ -308,7 +308,7 @@ export default function Projects() {
             </div>
 
             {/* Info */}
-            <div className="md:absolute top-[100%] text-black py-6">
+            <div className="md:absolute top-[100%] text-black p-6 md:py-6">
               <div className="text-sm opacity-70">{projects[3].nb}</div>
               <div className="text-2xl font-bold">{projects[3].title}</div>
               <div className="text-lg">{projects[3].subtitle}</div>

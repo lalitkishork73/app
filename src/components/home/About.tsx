@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
@@ -37,10 +37,11 @@ const aboutImages: AboutImage[] = [
   },
 ];
 
-export default function About() {
+export default function About () {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const tl = useMemo(() => gsap.timeline({ paused: true }), []);
+  const [suffledImages, setSuffledImages] = useState(0);
 
   useGSAP(() => {
     const ctx = gsap.context(() => {
@@ -80,41 +81,81 @@ export default function About() {
       });
     }, sectionRef);
 
-    gsap.to(imageRef.current, {
-      scale: 1.2, // Scale up the image by 20%
-      duration: 0.5,
-      paused: true, // Don't play on load
-    });
+    // gsap.to(imageRef.current, {
+    //   scale: 1.2, // Scale up the image by 20%
+    //   duration: 0.5,
+    //   paused: true, // Don't play on load
+    // });
 
     return () => ctx.revert();
   }, []);
 
-  const handleMouseEnter = () => {
-    gsap.to(imageRef.current, {
-      scale: 1.2,
-      duration: 0.5,
-    });
+  const handleMouseEnter = (e: any) => {
+    console.log(e.clientX, e.clientY, "Enter")
   };
 
-  const handleMouseLeave = () => {
-    gsap.to(imageRef.current, {
-      scale: 1,
-      duration: 0.5,
-    });
+  const handleMouseLeave = (e: any) => {
+    console.log(e.clientX, e.clientY, "Leave")
   };
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const image = imageRef.current;
+    if (!image) return;
+
+    const rect = image.getBoundingClientRect();
+    const offsetX = e.clientX - rect.width / 2;
+    const offsetY = e.clientY - rect.height / 2;
+    setSuffledImages(Math.floor(Math.random() * aboutImages.length));
+    const newIndex = Math.floor(Math.random() * aboutImages.length);
+
+
+    const imgEl = image.querySelector("img");
+    if (!imgEl) return;
+
+
+    gsap.to(image, {
+      left: offsetX,
+      top: offsetY,
+      duration: 0.2,
+      ease: "bounce.inOut"
+    });
+
+    gsap.to(imgEl, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.4,
+      ease: "power2.inOut",
+      onComplete: () => {
+        imgEl.setAttribute("src", aboutImages[newIndex].src);
+        imgEl.setAttribute("alt", aboutImages[newIndex].alt);
+
+        gsap.to(imgEl, {
+          opacity: 1,
+          scale: 1.1,
+          duration: 0.6,
+          ease: "power3.out",
+        });
+      },
+    });
+
+
+  };
+
 
   return (
     <section
       ref={sectionRef}
-      className=" h-screen flex flex-col justify-center items-center py-24   px-6 md:px-12"
+      className=" flex flex-col justify-center items-center md:pb-[19.08svw] md:pt-[25.44svw]  px-6 md:px-12"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
     >
-      <div className="w-full relative  flex flex-col justify-center items-center  " ref={imageRef}>
+      <div className="w-full md:relative  flex flex-col justify-center items-center  " >
         {/* Headings */}
-        <div className="md:absolute w-full text-center h-auto about-heading">
-          <p className="absolute inset-0 pb-24 m-auto text-sm uppercase tracking-widest ">
+        <div className="md:absolute  md:top-0 text-center h-auto about-heading">
+          <p className=" inline-block pb-24 m-auto text-sm uppercase tracking-widest ">
             we are <strong>inertia</strong>
           </p>
-          <div className=" w-full text-center text-3xl md:text-8xl font-bold tracking-tight ">
+          <div className=" w-full block md:relative text-center text-3xl md:text-9xl font-medium tracking-tight overflow-hidden ">
             <h1>HELPING BRANDS</h1>
             <h1>MOVE THE WORLD</h1>
             <h1>FORWARD</h1>
@@ -122,21 +163,16 @@ export default function About() {
         </div>
 
         {/* Images Grid */}
-        <div
-          className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {aboutImages.map((img, i) => (
             <div
               key={i}
-              className="relative w-full h-48 md:h-64 overflow-hidden rounded-xl about-image"
+              className="md:relative w-full h-48 md:h-64 overflow-hidden rounded-xl about-image"
             >
-              <Image
-                src={img.src}
-                alt={img.alt}
+              <img
+               
                 
-                fill
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -144,8 +180,8 @@ export default function About() {
         </div>
 
         {/* Tagline */}
-        <div className=" md:absolute inset-0  w-full flex flex-col md:flex-row justify-between items-center md:justify-between text-xl md:text-2xl font-semibold mb-12 about-tagline">
-          <div className=" w-full">
+        <div className=" md:absolute md:inset-0 mt-10 w-full flex flex-col md:flex-row justify-center items-center md:justify-between font-semibold  about-tagline">
+          <div className="text-center md:text-left w-full">
             <p>
               <strong>CULTURE</strong> IN MOTION
             </p>
@@ -158,7 +194,7 @@ export default function About() {
         </div>
 
         {/* CTA */}
-        <div className="text-center absolute inset-0 w-full mb-10">
+        <div className="text-center inline-block md:absolute md:bottom-0 w-full ">
           <Link
             href="/contact"
             className="inline-flex items-center gap-3 text-lg font-medium group"
@@ -183,6 +219,25 @@ export default function About() {
             </svg>
           </Link>
         </div>
+      </div>
+      <div
+        className="w-[200px] h-[150px]  rounded-full fixed"
+        ref={imageRef}
+      >
+        {/* {aboutImages.map((img, i) => ( */}
+        <div
+          // key={i}
+          className="md:relative w-full h-full overflow-hidden about-image"
+        >
+          <img
+            // src={aboutImages[suffledImages].src}
+            // alt={aboutImages[suffledImages].alt}
+
+            
+            className="object-cover transition-transform duration-700 hover:scale-105"
+          />
+        </div>
+        {/* ))} */}
       </div>
     </section>
   );
