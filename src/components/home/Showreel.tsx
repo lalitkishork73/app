@@ -18,9 +18,9 @@ export default function Showreel () {
     }
 
     return (
-        <section className="relative w-full bg-black py-16 flex justify-center items-center">
+        <section className="relative w-full bg-black  flex justify-center items-center">
             {/* Video */}
-            <div className="relative w-full max-w-5xl aspect-video overflow-hidden rounded-2xl shadow-lg">
+            <div className="relative w-full  aspect-video overflow-hidden  shadow-lg">
                 <video
                     ref={videoRef}
                     src="https://player.vimeo.com/progressive_redirect/playback/1065815193/rendition/1080p/file.mp4?loc=external&log_user=0&signature=89bb8fec92eecacdcdba2d28127b89c7b4b33e8fc869f2f60a1464b6d4e8f8b6&user_id=308755"

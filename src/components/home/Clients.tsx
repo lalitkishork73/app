@@ -75,14 +75,21 @@ export default function Clients () {
     const marqueeRef = useRef<HTMLDivElement>(null)
 
     useGSAP(() => {
-        if (!marqueeRef.current) return
+
+        const marquee = marqueeRef.current
+        if (!marquee) return
+
+        let distance = marquee.scrollWidth;
 
         const ctx = gsap.context(() => {
-            gsap.to('.client-logo-row', {
-                xPercent: -50,
+            gsap.to(marquee, {
+                xPercent: -100,
                 ease: 'none',
                 repeat: -1,
                 duration: 30,
+                modifiers: {
+                          x: gsap.utils.unitize((x) => parseFloat(x) % distance), // loop seamlessly
+                        },
             })
         }, marqueeRef)
 
@@ -93,12 +100,13 @@ export default function Clients () {
     const logos = [...clientLogos, ...clientLogos]
 
     return (
-        <section className="relative w-full py-16 overflow-hidden bg-white">
+        <section className="relative w-full py-5 overflow-hidden bg-white">
             <div ref={marqueeRef} className="flex w-[200%] client-logo-row">
                 {logos.map((logo, i) => (
                     <div
                         key={i}
-                        className="flex items-center justify-center w-48 h-28 mx-6 flex-shrink-0"
+                        className="flex items-center justify-center w-48 h-28  flex-shrink-0"
+
                     >
                         <Image
                             src={logo.src}

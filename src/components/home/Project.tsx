@@ -59,6 +59,7 @@ const projects: Project[] = [
 
 export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const ctx = gsap.context(() => {
@@ -99,7 +100,7 @@ export default function Projects() {
   }, []);
 
   useGSAP(() => {
-    const marquee = document.querySelector(".marquee-content");
+    const marquee = marqueeRef.current;
 
     if (marquee) {
       const distance = marquee.scrollWidth / 2; // Half width because of duplicate
@@ -141,8 +142,8 @@ export default function Projects() {
       </div>
 
       {/* Banner Text (looped span style) */}
-      <div className="marquee-container overflow-hidden whitespace-nowrap text-4xl md:text-6xl font-semibold text-gray-300 border border-gray-300  md:border-black py-5">
-        <div className="marquee-content flex gap-16 uppercase text-black">
+      <div className="marquee-container overflow-hidden whitespace-nowrap text-4xl md:text-6xl font-semibold text-gray-300 border border-gray-300  md:border-black py-5" >
+        <div className="marquee-content flex gap-16 uppercase text-black" ref={marqueeRef}>
           <span>Case studies</span>
           <span>Featured Projects</span>
           <span>Case studies</span>
@@ -307,7 +308,7 @@ export default function Projects() {
             </div>
 
             {/* Info */}
-            <div className="md:absolute top-[100%] text-black p-6">
+            <div className="md:absolute top-[100%] text-black py-6">
               <div className="text-sm opacity-70">{projects[3].nb}</div>
               <div className="text-2xl font-bold">{projects[3].title}</div>
               <div className="text-lg">{projects[3].subtitle}</div>
